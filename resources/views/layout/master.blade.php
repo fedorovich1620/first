@@ -20,8 +20,8 @@
 	<div class="container">
 
 		<ul class="nav nav-pills">
-		  <li class="active"><a href="{{url('home')}}">Home</a></li>
-		  <li><a href="{{url('addcountry')}}">Add new</a></li>
+		  <li class="active"><a href="{{url('topic')}}">Home</a></li>
+		  <li><a href="{{url('topic/create')}}">Add topic</a></li>
 		</ul>
 
 
