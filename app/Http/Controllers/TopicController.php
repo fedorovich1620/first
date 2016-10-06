@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Topic;
+use App\Block;
+
 class TopicController extends Controller
 {
     /**
@@ -23,9 +26,10 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create()        //вывод формы
     {
-        //
+        $topic=new Topic;
+        return view('topic.create',['topic'=>$topic,'page'=>'Add Topic']);
     }
 
     /**
@@ -34,9 +38,16 @@ class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)     //сохранение формы
     {
-        //
+         $topic=new Topic;
+         $topic->topicname=$request->topicnameform;
+         if(!$topic->save())
+         {
+            $errors=$topic->getErrors();
+            return redirect()->action('TopicController@create')->with('errors',$errors)->withInput();
+         }
+         return redirect()->action('TopicController@create')->with('message','New topic'.$topic->topicname.' was added with id='.$topic->id.'!');
     }
 
     /**
