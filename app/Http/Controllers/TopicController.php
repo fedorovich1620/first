@@ -29,7 +29,7 @@ class TopicController extends Controller
     public function create()        //вывод формы
     {
         $topic=new Topic;
-        return view('topic.create',['topic'=>$topic,'page'=>'Add Topic']);
+        return view('topic.create',['topic'=>$topic,'page'=>'AddTopic']);
     }
 
     /**

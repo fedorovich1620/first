@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Topic;
+use App\Block;
+
 class BlockController extends Controller
 {
     /**
@@ -25,7 +28,9 @@ class BlockController extends Controller
      */
     public function create()
     {
-        //
+        $block=new Block;
+        $topics=Topic::pluck('topicname','id');
+        return view('block.create',array('block'=>$block,'topics'=>$topics,'page'=>'AddBlock'));
     }
 
     /**
@@ -36,7 +41,29 @@ class BlockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $block=new Block;
+       $fname=$request->file('imagepath');
+       if($fname!=null)
+       {
+        $originalname=$request->file('imagepath')->getClientOriginalName();
+        $request->file('imagepath')->move(public_path().'/images',$originalname);
+        $block->imagepath='/images'.$originalname;
+       }
+       else
+       {
+        $block->imagepath='';
+       }
+      
+        $block->title=$request->title;
+        $block->topicid=$request->topicid;
+        $block->content=$request->content;
+
+         if(!$block->save())
+         {
+            $errors=$block->getErrors();
+            return redirect()->action('BlockController@create')->with('errors',$errors)->withInput();
+         }
+         return redirect()->action('BlockController@create')->with('message','New block was added with id='.$block->id.'!');
     }
 
     /**
