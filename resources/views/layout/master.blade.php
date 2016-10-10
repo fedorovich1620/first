@@ -22,7 +22,7 @@
 			<nav class="col-sm-12 col-md-12 col-lg-12">
 				<ul class="nav nav-pills">
 				<li><a href="{{url('topic')}}">Home</a></li>
-				<li><a href="{{url('topic/create')}}">Add topic</a></li>
+				<li class="active"><a href="{{url('topic/create')}}">Add topic</a></li>
 				</ul>	
 			</nav>
 		</div>
