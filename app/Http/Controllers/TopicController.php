@@ -18,7 +18,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-     
+        $topics=Topic::all();
+        $id=0;
+        return view('topic.index',['page'=>'home','topics'=>$topics,'id'=> $id]);
     }
 
     /**
@@ -58,7 +60,9 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+         $blocks=Block::where('topicid','=',$id)->get();
+         $topics=Topic::all();
+         return view('topic.index',['page'=>'home','topics'=>$topics,'id'=>$id,'blocks'=>$blocks]);
     }
 
     /**
@@ -69,7 +73,7 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -93,5 +97,13 @@ class TopicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $search=$request->search;
+        $search='%'.$search.'%';
+        $topics=Topic::where('topicname','like',$search)->get();
+        return view('topic.index',['page'=>'home','topics'=>$topics,'id'=>0]);
     }
 }

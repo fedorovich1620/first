@@ -47,7 +47,7 @@ class BlockController extends Controller
        {
         $originalname=$request->file('imagepath')->getClientOriginalName();
         $request->file('imagepath')->move(public_path().'/images',$originalname);
-        $block->imagepath='/images'.$originalname;
+        $block->imagepath='/images/'.$originalname;
        }
        else
        {
